@@ -62,6 +62,30 @@ def test_plugin_json_required_fields():
             assert field in data, f"{agent}/plugin.json: missing '{field}'"
 
 
+def test_plugin_json_skills_and_agents_are_not_stale_arrays():
+    """
+    plugin.json must not carry 'skills' or 'agents' as an array of {name, path}
+    objects — that shape belongs to the per-skill-plugin generator removed in
+    1.13.0 and fails install-time schema validation outright (confirmed via
+    `claude plugin install`, not just `claude plugin validate`). The other 89
+    agents omit both keys and rely on auto-discovery; that's the only shape
+    that installs. 11 agents (budget, deploy, embed, evals, form, guard,
+    prompt, proof, rank, token, trace) shipped with the stale array shape in
+    1.13.0 and could not be installed standalone — exactly the granularity
+    apex-profile depends on.
+    """
+    for agent in AGENTS:
+        p = REPO / "team" / agent / ".claude-plugin" / "plugin.json"
+        data = json.loads(p.read_text())
+        for key in ("skills", "agents"):
+            value = data.get(key)
+            assert not isinstance(value, list), (
+                f"{agent}/plugin.json: '{key}' is a stale array of "
+                f"{{name, path}} objects — this fails `claude plugin install "
+                f"{agent}@tonone-ai`. Remove the key; auto-discovery covers it."
+            )
+
+
 def test_agent_definitions_not_empty():
     """Agent definitions must be substantive (>= 50 lines) — not placeholder stubs."""
     for agent_file in sorted((REPO / "agents").glob("*.md")):

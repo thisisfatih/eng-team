@@ -1,38 +1,18 @@
 {
   "name": "proof",
   "version": "1.13.0",
-  "description": "QA & testing engineer \u2014 test strategy, E2E suites, integration testing, test infrastructure, flaky test triage",
+  "description": "QA & testing engineer — test strategy, E2E suites, integration testing, test infrastructure, flaky test triage",
   "author": {
     "name": "tonone-ai",
     "url": "https://tonone.ai"
   },
   "repository": "https://github.com/tonone-ai/tonone",
   "license": "MIT",
-  "keywords": ["testing", "qa", "e2e", "integration", "playwright"],
-  "skills": [
-    {
-      "name": "proof-strategy",
-      "path": "skills/proof-strategy/skill.md"
-    },
-    {
-      "name": "proof-e2e",
-      "path": "skills/proof-e2e/skill.md"
-    },
-    {
-      "name": "proof-api",
-      "path": "skills/proof-api/skill.md"
-    },
-    {
-      "name": "proof-audit",
-      "path": "skills/proof-audit/skill.md"
-    },
-    {
-      "name": "proof-recon",
-      "path": "skills/proof-recon/skill.md"
-    },
-    {
-      "name": "proof-design",
-      "path": "skills/proof-design/skill.md"
-    }
+  "keywords": [
+    "testing",
+    "qa",
+    "e2e",
+    "integration",
+    "playwright"
   ]
 }
